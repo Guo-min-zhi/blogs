@@ -3,9 +3,12 @@ $def with (blogs)
 <div>
 <ul>
 $for blog in blogs:
-	<li>
-		<p>blog.title</p>
-		<p>blog.content</p>
-	</li>
+	<div class="hero-unit">
+		<h2>$blog.title</h2>
+		<p>$blog.content</p>
+		<p>
+			<a class="btn btn-primary btn-mini" href="#">read more</a>
+		</p>
+	</div>
 </ul>
 </div>

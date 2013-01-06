@@ -1,12 +1,14 @@
 import web
 from configs import settings
+from datetime import datetime
 
 db = settings.db
 render = settings.render
 
 class Index:
 	def GET(self):
-		return 'index page'
+		blogs = db.select('blogs', order = 'create_time desc')
+		return render.index(blogs) 
 
 class View:
 	def GET(self,id):
@@ -14,7 +16,14 @@ class View:
 
 class New:
 	def GET(self):
-		return 'new page'
+		return render.new('aa')
+	def POST(self):
+		i = web.input()
+		title = i.get('title', None)
+		content = i.get('content', None)
+		db.insert('blogs', title = title, content = content, create_time = datetime.now())
+		raise web.seeother('/')
+
 
 class Edit:
 	def GET(self,id):
